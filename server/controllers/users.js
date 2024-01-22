@@ -50,4 +50,3 @@ export const deleteUser=(req,res)=>{
     users = users.filter((user) => user.id !== id);
     res.send(`User id:${id} deleted from database`);
 }
-console.log(users)
