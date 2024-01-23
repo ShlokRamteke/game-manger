@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home";
-import Library from "./components/Library/Library";
-import Game from "./components/Library/Game/Game";
+import Home from "./components/Home/Home.js";
+import Library from "./components/Library/Library.js";
+import Game from "./components/Library/Game/GameDetails.js";
 
 function App() {
   return (

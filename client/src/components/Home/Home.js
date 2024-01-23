@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [showHint, setShowHint] = useState(false);
-  console.log(showHint);
   const history = useNavigate();
   return (
     <div
