@@ -6,7 +6,7 @@ import Library from "./components/Library.js";
 function App() {
   const [games,setGames]=useState([]);
   useEffect(()=>{
-    setGames(getAllGames());
+    const games=getAllGames();
     console.log(games)
   },[]);
   
