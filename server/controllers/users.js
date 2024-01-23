@@ -1,36 +1,36 @@
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 //Temp database
-let users=[];
+let users = [];
 
 //Get a single user
-export const getUser=(req,res)=>res.send(users);
+export const getUser = (req, res) => res.send(users);
 
 //Get all useres
-export const getAllUsers=(req,res)=>{
-    //Get user id
-    const {id}=req.params;
+export const getAllUsers = (req, res) => {
+  //Get user id
+  const { id } = req.params;
 
-    const foundUser=users.find((user)=>user.id===id);
+  const foundUser = users.find((user) => user.id === id);
 
-    res.send(foundUser);
+  res.send(foundUser);
 };
 
 // Add a new user
-export const createUser=(req,res)=>{
-    //Add user to database
-    const user=req.body;
+export const createUser = (req, res) => {
+  //Add user to database
+  const user = req.body;
 
-    //Create a unique id for user; add to database
-    users.push({...users, id:uuidv4()});
+  //Create a unique id for user; add to database
+  users.push({ ...users, id: uuidv4() });
 
-    res.send(
-        `The user:${user.firstName} ${user.lastName} was add to the database.`
-      );
-}
+  res.send(
+    `The user:${user.firstName} ${user.lastName} was add to the database.`
+  );
+};
 
-export const updateUser=(req,res)=>{
-    const id = req.params;
+export const updateUser = (req, res) => {
+  const id = req.params;
 
   const { firstName, lastName, age } = req.body;
   //Find the user using id
@@ -44,9 +44,9 @@ export const updateUser=(req,res)=>{
   res.send(`User id:${id} updated`);
 };
 
-export const deleteUser=(req,res)=>{
-    const { id } = req.params;
-    //Remove the specified user from the database
-    users = users.filter((user) => user.id !== id);
-    res.send(`User id:${id} deleted from database`);
-}
+export const deleteUser = (req, res) => {
+  const { id } = req.params;
+  //Remove the specified user from the database
+  users = users.filter((user) => user.id !== id);
+  res.send(`User id:${id} deleted from database`);
+};
