@@ -9,6 +9,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.dark,
+    width: "960px",
+    height: "600px",
+    margin: "0 auto",
   },
   title: {
     color: theme.palette.text.light,
@@ -19,7 +22,8 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   card: {
-    width: "100%",
+    width: "400%",
+    height: "600px",
     display: "flex",
     flexDirection: "column",
     color: theme.palette.text.light,
@@ -27,6 +31,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   cardMedia: {
     paddingTop: "56.32%", // 16:9 ratio
+    width: "100%",
+    height: "400px",
   },
   cardContent: {
     flexGrow: 1,
