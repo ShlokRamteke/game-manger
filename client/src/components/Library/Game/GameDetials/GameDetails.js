@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 // Get single game details
-import { getGame } from "../../../../api/index";
+import { getGame } from "../../../../api/index.js";
 
 // File uploader
 import FileBase from "react-file-base64";

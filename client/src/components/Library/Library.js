@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getAllGames } from "../../api/index.js";
 import Game from "./Game/Game.js";
 
-import { Paper, Grid, Typography } from "@mui/material";
+import { Paper, Grid, Typography, Container, Avatar } from "@mui/material";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+
 import { useStyles } from "./styles";
 
 const Library = () => {
@@ -11,7 +13,7 @@ const Library = () => {
 
   const handleGames = async () => {
     const { data } = await getAllGames();
-    console.log(data);
+
     await setGames(data);
   };
 
@@ -19,19 +21,28 @@ const Library = () => {
     handleGames();
   }, []);
   return (
-    <Grid container className={classes.container}>
-      <Paper elevation={6}>
-        <Grid container>
-          <Grid item>
-            <Typography variant="h3">My Game Library</Typography>
-          </Grid>
-          {/* Games section */}
-          <Grid item>
-            {games &&
-              games.map((game, index) => <Game key={index} game={game} />)}
-          </Grid>
+    <Grid container className={classes.root}>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item component="header">
+          <Paper className={classes.header} square>
+            <Typography variant="h3" component="h1">
+              Game Manager
+            </Typography>
+            <Avatar variant="rounded" className={classes.avatarLarge}>
+              <SportsEsportsIcon fontSize="large" />
+            </Avatar>
+          </Paper>
         </Grid>
-      </Paper>
+        {/* Games section */}
+        <Container>
+          <Container maxWidth="lg" className={classes.cardGrid}>
+            <Grid container spacing={4} justify="center">
+              {games &&
+                games.map((game, index) => <Game key={index} game={game} />)}
+            </Grid>
+          </Container>
+        </Container>
+      </Grid>
     </Grid>
   );
 };
