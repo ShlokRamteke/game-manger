@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { Container } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 
 //Routes
