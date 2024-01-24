@@ -3,6 +3,8 @@ import { Link as NavLink, useNavigate } from "react-router-dom";
 
 import { addGame } from "../../api/index.js";
 
+import base64 from "base-64";
+
 //Classname utility for creating conditonal classes
 import clsx from "clsx";
 import {
@@ -77,16 +79,33 @@ const Layout = ({ Content }) => {
   };
 
   //Handle form change for new game
-  const handleFormChange = (e) => {
+  const handleFormChange = async (e) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      const base64 = await convertToBase64(file);
+      setNewGame({ ...newGame, [e.target.name]: base64 });
+    }
     setNewGame({ ...newGame, [e.target.name]: e.target.value });
+  };
+  // function to convet to base64
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
 
   const handleNewGame = async (e) => {
     e.preventDefault();
-    console.log(newGame);
-    console.log("New Game added");
+
     const { res } = await addGame(newGame);
-    console.log(res);
+    console.log(JSON.parse(res));
 
     //Clear input fields
     setNewGame({
@@ -98,6 +117,7 @@ const Layout = ({ Content }) => {
 
     //Close Dialog box
     toggleUploadForm();
+    alert("Game successfully added");
   };
 
   //Watch for changes to the viewport
@@ -199,11 +219,7 @@ const Layout = ({ Content }) => {
         </Container>
       </main>
       {/* *********** GAME UPLOAD FORM ************ */}
-      <Dialog
-        open={uploadForm}
-        onClose={uploadForm}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={uploadForm} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Game:</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -254,7 +270,7 @@ const Layout = ({ Content }) => {
               onChange={handleFormChange}
               type="file"
               required
-              style={{ display: "none", width: "100%" }}
+              style={{ display: "none" }}
             />
             <label htmlFor="coverArt">
               <Button
@@ -264,7 +280,7 @@ const Layout = ({ Content }) => {
                 component="span"
                 startIcon={<CloudUploadIcon />}
               >
-                Upload Cover art
+                Upload Cover Art
               </Button>
             </label>
           </form>
