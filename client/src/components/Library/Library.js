@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllGames } from "../../api";
-import Game from "./Game/Game";
+import { getAllGames } from "../../api/index.js";
+import Game from "./Game/Game.js";
 
 import { Paper, Grid, Typography } from "@mui/material";
 import { useStyles } from "./styles";
