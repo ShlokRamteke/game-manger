@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link as NavLink, useNavigate } from "react-router-dom";
 
+import { addGame } from "../../api/index.js";
+
 //Classname utility for creating conditonal classes
 import clsx from "clsx";
 import {
@@ -16,8 +18,14 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  Link,
   Avatar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
+  Button,
 } from "@mui/material";
 
 //Icons
@@ -26,6 +34,8 @@ import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import GamesIcon from "@mui/icons-material/Games";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { useStyles } from "./styles.js";
 
@@ -34,6 +44,17 @@ import Library from "../Library/Library.js";
 const Layout = ({ Content }) => {
   const classes = useStyles();
   const history = useNavigate();
+
+  const [newGame, setNewGame] = useState({
+    title: "",
+    description: "",
+    coverArt: "",
+    releaseDate: "",
+  });
+
+  // Handle game upload menu
+  const [uploadForm, setUploadForm] = useState(false);
+  const toggleUploadForm = () => setUploadForm(!uploadForm);
 
   //Handle user logout
   const logout = () => {
@@ -53,6 +74,30 @@ const Layout = ({ Content }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const handleWidthChange = () => {
     setWidth(window.innerWidth);
+  };
+
+  //Handle form change for new game
+  const handleFormChange = (e) => {
+    setNewGame({ ...newGame, [e.target.name]: e.target.value });
+  };
+
+  const handleNewGame = async (e) => {
+    e.preventDefault();
+    console.log(newGame);
+    console.log("New Game added");
+    const { res } = await addGame(newGame);
+    console.log(res);
+
+    //Clear input fields
+    setNewGame({
+      title: "",
+      description: "",
+      coverArt: "",
+      releaseDate: "",
+    });
+
+    //Close Dialog box
+    toggleUploadForm();
   };
 
   //Watch for changes to the viewport
@@ -114,12 +159,17 @@ const Layout = ({ Content }) => {
         <Divider />
         {/* Main menu list */}
         <List>
-          <ListItem>
+          <ListItem
+            button
+            style={{ padding: "24px" }}
+            onClick={toggleUploadForm}
+          >
             <ListItemIcon>
-              {/* User avatar */}
-              <GamesIcon />
+              {/* Upload Game*/}
+
+              <CloudUploadIcon color="primary" style={{ fontSize: "2.2rem" }} />
             </ListItemIcon>
-            <ListItemText primary="Games" />
+            <ListItemText primary="Upload new game" />
           </ListItem>
         </List>
         <Divider />
@@ -148,6 +198,96 @@ const Layout = ({ Content }) => {
           </Grid>
         </Container>
       </main>
+      {/* *********** GAME UPLOAD FORM ************ */}
+      <Dialog
+        open={uploadForm}
+        onClose={uploadForm}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Add New Game:</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Use the inputs below to add a new game to the library.
+          </DialogContentText>
+          <form>
+            {/* Title */}
+            <TextField
+              autoFocus
+              margin="dense"
+              name="title"
+              id="title"
+              label="Game Title"
+              type="text"
+              onChange={handleFormChange}
+              fullWidth
+              required
+            />
+            {/* Description */}
+            <TextField
+              autoFocus
+              margin="dense"
+              name="description"
+              id="description"
+              label="Description"
+              type="text"
+              onChange={handleFormChange}
+              fullWidth
+              required
+            />
+            {/* Release Date */}
+            <TextField
+              margin="dense"
+              name="releaseDate"
+              id="releaseDate"
+              label="Release Date"
+              type="text"
+              onChange={handleFormChange}
+              helperText="Format: June 30, 2021"
+              fullWidth
+              required
+            />
+            {/* Cover Art */}
+            <input
+              accept="image/*"
+              name="coverArt"
+              id="coverArt"
+              onChange={handleFormChange}
+              type="file"
+              required
+              style={{ display: "none", width: "100%" }}
+            />
+            <label htmlFor="coverArt">
+              <Button
+                style={{ marginTop: "20px" }}
+                variant="contained"
+                color="secondary"
+                component="span"
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload Cover art
+              </Button>
+            </label>
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={toggleUploadForm}
+            color="primary"
+            variant="outlined"
+            startIcon={<CancelIcon />}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={(e) => handleNewGame(e)}
+            color="primary"
+            variant="contained"
+            startIcon={<CloudUploadIcon />}
+          >
+            Save Game
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
