@@ -116,11 +116,12 @@ export const getAllGames = async (req, res) => {
 };
 
 //Specific game
-export const getGame = (req, res) => {
+export const getGame = async (req, res) => {
   const { id } = req.params;
   try {
     console.log(`Get game with id:${id}`);
-    const game = games.find((game) => game.id === id);
+    const game = await Games.findById(id);
+    // const game = games.find((game) => game.id === id);
     res.status(203).send(games);
   } catch (error) {
     console.log(error);
@@ -131,15 +132,15 @@ export const getGame = (req, res) => {
 export const addGame = async (req, res) => {
   const game = req.body;
   console.log(game);
-
+  // Create new game onject
   const newGame = new Games({
     ...game,
     createdAt: new Date().toISOString(),
-    id: uuidv4(),
+    _id: uuidv4(),
   });
 
   try {
-    //Add to DB
+    //Add to game DB
     await newGame.save();
     res.status(201).send("Games successfully added.");
   } catch (error) {
@@ -148,25 +149,21 @@ export const addGame = async (req, res) => {
 };
 
 //Update game
-export const updateGame = (req, res) => {
+export const updateGame = async (req, res) => {
   const { id } = req.params;
-  const { title, coverArt, description, releaseDate } = req.body;
+  const game = req.body;
   try {
-    console.log(`Game with id:${id} found.`);
-    const updatedGame = games.find((game) => game.id === id);
+    // Handle 404
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send("No game with the id");
 
-    if (title) {
-      updateGame.title = title;
-    }
-    if (coverArt) {
-      updateGame.coverArt = coverArt;
-    }
-    if (description) {
-      updateGame.description = description;
-    }
-    if (releaseDate) {
-      updateGame.releaseDate = releaseDate;
-    }
+    console.log(`Game with id:${id} found.`);
+    //Find game and update the specified fields
+    const updatedGame = await Games.findByIdAndUpdate(
+      id,
+      { ...game, id },
+      { new: true }
+    );
 
     res.status(200).send(updatedGame);
   } catch (error) {
@@ -175,15 +172,17 @@ export const updateGame = (req, res) => {
 };
 
 //Delete Game
-export const deleteGame = (req, res) => {
+export const deleteGame = async (req, res) => {
   const { id } = req.params;
 
   try {
     //Check if game exist
-    if (!games.find((game) => game.id === id))
-      return res.status(404).send("Game not found");
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send("Game not found with the id");
 
     //Remove the game from database
+    await Games.findByIdAndRemove(id);
+
     games = game.filter((game) => game.id !== id);
     res.status(202).send("Game deleted from the library");
   } catch (error) {

@@ -104,8 +104,8 @@ const Layout = ({ Content }) => {
   const handleNewGame = async (e) => {
     e.preventDefault();
 
-    const { res } = await addGame(newGame);
-    console.log(JSON.parse(res));
+    const res = await addGame(newGame);
+    console.log(res.status);
 
     //Clear input fields
     setNewGame({
@@ -117,7 +117,7 @@ const Layout = ({ Content }) => {
 
     //Close Dialog box
     toggleUploadForm();
-    alert("Game successfully added");
+    alert(res.data);
   };
 
   //Watch for changes to the viewport
