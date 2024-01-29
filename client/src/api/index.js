@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000/" });
+const API = axios.create({ baseURL: "http://localhost:5500/" });
 
 //Get games
 export const getAllGames = () => API.get("/games");

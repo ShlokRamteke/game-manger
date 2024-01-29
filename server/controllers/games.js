@@ -111,7 +111,7 @@ export const getAllGames = async (req, res) => {
     res.status(200).send(games);
   } catch (error) {
     console.log(error);
-    res.status(404).send("Game were not found");
+    res.status(404).send("Games were not found");
   }
 };
 
@@ -122,7 +122,7 @@ export const getGame = async (req, res) => {
     console.log(`Get game with id:${id}`);
     const game = await Games.findById(id);
     // const game = games.find((game) => game.id === id);
-    res.status(203).send(games);
+    res.status(203).send(game);
   } catch (error) {
     console.log(error);
   }
@@ -136,7 +136,6 @@ export const addGame = async (req, res) => {
   const newGame = new Games({
     ...game,
     createdAt: new Date().toISOString(),
-    _id: uuidv4(),
   });
 
   try {

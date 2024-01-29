@@ -35,7 +35,7 @@ const GameDetails = () => {
 
   const getGameDetails = async () => {
     const { data } = await getGame(id);
-
+    //console.log(data[0]);
     await setGame(data);
   };
 
@@ -45,6 +45,7 @@ const GameDetails = () => {
       getGameDetails();
     }
   }, [id]);
+  console.log(game.coverArt);
 
   return (
     <Container maxWidth="lg">
@@ -54,6 +55,7 @@ const GameDetails = () => {
             className={classes.cardMedia}
             image={game?.coverArt}
             title={game?.title}
+            component="img"
           />
           <Divider
             orientation="vertical"

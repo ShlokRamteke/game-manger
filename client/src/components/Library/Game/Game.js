@@ -11,26 +11,18 @@ import {
   Link,
 } from "@mui/material";
 
-//File decoder
-import base64 from "base-64";
-
 import { useStyles } from "../styles.js";
 
 const Game = ({ game }) => {
   const classes = useStyles();
-  const { id, title, coverArt } = game;
-  const [showEditForm, setShowEditForm] = useState(false);
-
-  const handleEditForm = () => {
-    setShowEditForm(!showEditForm);
-  };
+  const { _id, title, coverArt } = game;
 
   return (
     <>
       <Grid item xs={12} sm={6} md={4} xl={6}>
         <Link
           component={RouterLink}
-          to={`/games/${id}`}
+          to={`/games/${_id}`}
           className={classes.cardLink}
         >
           <Card className={classes.card}>
@@ -38,6 +30,7 @@ const Game = ({ game }) => {
               className={classes.cardMedia}
               image={coverArt ? coverArt : "https://source.unsplash.com/random"}
               title={title}
+              component="img"
             />
           </Card>
         </Link>

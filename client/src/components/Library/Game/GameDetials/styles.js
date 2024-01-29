@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   card: {
-    width: "400%",
+    width: "400px",
     height: "600px",
     display: "flex",
     flexDirection: "column",
@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.dark,
   },
   cardMedia: {
-    paddingTop: "56.32%", // 16:9 ratio
+    // paddingTop: "56.32%", // 16:9 ratio
     width: "100%",
     height: "400px",
   },
