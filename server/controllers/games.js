@@ -1,10 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
 import mongoose from "mongoose";
 import Games from "../models/games.js";
 
 //Temp user "database"
-
-let games = [
+/*
+let games1 = [
   {
     title: "Halo: Combat Evolved",
     coverArt: "Cover Art",
@@ -102,12 +101,13 @@ let games = [
     id: uuidv4(),
   },
 ];
+*/
 
 //All games
 export const getAllGames = async (req, res) => {
   try {
     //Fetch games & sort by most recent added
-    games = await Games.find().sort("-1");
+    const games = await Games.find().sort("-1");
     res.status(200).send(games);
   } catch (error) {
     console.log(error);
