@@ -97,8 +97,6 @@ const GameDetails = () => {
     toggleEditForm();
     setAlertStatus(res.status);
     toggleConfirmationDialog();
-    //redirect to library
-    history("/games");
   };
 
   //Submit game update form and call utility functions
@@ -130,16 +128,36 @@ const GameDetails = () => {
   //Display a confirmation alert after user submits form
   const confirmationAlert = (status) => {
     switch (status) {
+      //Successful update
       case 200:
         return (
           <Alert
             className={classes.alert}
             severity="success"
-            onClose={() =>
-              toggleConfirmationDialog() && window.location.reload()
-            }
+            variant="filled"
+            onClose={() => {
+              toggleConfirmationDialog();
+              getGameDetails();
+            }}
           >
-            <AlertTitle>success</AlertTitle>
+            <AlertTitle>Success</AlertTitle>
+            Game details have been updated!
+          </Alert>
+        );
+      // Handle successful deletion
+      case 202:
+        return (
+          <Alert
+            className={classes.alert}
+            severity="success"
+            variant="filled"
+            onClose={() => {
+              toggleConfirmationDialog();
+              // Redirect user to library
+              history("/games");
+            }}
+          >
+            <AlertTitle>Success</AlertTitle>
             Game details have been updated!
           </Alert>
         );
@@ -153,6 +171,7 @@ const GameDetails = () => {
           <Alert
             className={classes.alert}
             severity="error"
+            variant="filled"
             onClose={() => toggleConfirmationDialog()}
           >
             <AlertTitle> Error</AlertTitle>
@@ -164,9 +183,11 @@ const GameDetails = () => {
           <Alert
             className={classes.alert}
             severity="success"
-            onClose={() =>
-              toggleConfirmationDialog() && window.location.reload()
-            }
+            variant="filled"
+            onClose={() => {
+              toggleConfirmationDialog();
+              getGameDetails();
+            }}
           >
             <AlertTitle>success</AlertTitle>
             Game details have been updated!
@@ -196,16 +217,6 @@ const GameDetails = () => {
             />
             <Divider className={classes.divider} />
             <CardContent className={classes.cardContent}>
-              {/* Edit button */}
-              <Fab
-                aria-label={"Edit game button"}
-                className={classes.edit}
-                color="primary"
-                size="small"
-                onClick={() => toggleEditForm()}
-              >
-                <EditIcon />
-              </Fab>
               <Typography variant="h4" component="h2">
                 {game?.title}
               </Typography>
@@ -224,6 +235,16 @@ const GameDetails = () => {
                 >
                   <ArrowBackIcon /> Go back to library
                 </Link>
+                {/* Edit button */}
+                <Fab
+                  aria-label={"Edit game button"}
+                  className={classes.edit}
+                  color="primary"
+                  size="small"
+                  onClick={() => toggleEditForm()}
+                >
+                  <EditIcon />
+                </Fab>
               </CardActions>
             </CardContent>
           </Card>

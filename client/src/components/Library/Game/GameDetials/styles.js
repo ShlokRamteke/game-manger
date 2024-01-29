@@ -45,7 +45,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   edit: {
     position: "absolute",
-    top: "20px",
+    bottom: "0",
     right: "8px",
   },
   cardActions: {
