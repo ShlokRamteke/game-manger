@@ -1,11 +1,11 @@
 import express from "express";
-import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 dotenv.config();
 
 // Adding routes
+import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import gameRoutes from "./routes/games.js";
 
@@ -17,6 +17,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 //Middleware
+app.use("/", authRoutes);
 app.use("/users", userRoutes);
 app.use("/games", gameRoutes);
 
