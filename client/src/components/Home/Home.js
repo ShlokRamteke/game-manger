@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import {
@@ -19,6 +19,10 @@ const Home = () => {
 
   const [showHint, setShowHint] = useState(false);
   const history = useNavigate();
+  useEffect(() => {
+    document.title = "Sign In | Game Manager";
+  }, []);
+
   return (
     <Grid container component="main" className={classes.root}>
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
