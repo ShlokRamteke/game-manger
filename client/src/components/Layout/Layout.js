@@ -80,9 +80,13 @@ const Layout = ({ Content }) => {
   const handleFormChange = async (e) => {
     if (e.target.files) {
       const file = e.target.files[0];
+
       const base64 = await convertToBase64(file);
+      console.log(base64);
       setNewGame({ ...newGame, [e.target.name]: base64 });
+      return;
     }
+    console.log(e.target.name, e.target.value);
     setNewGame({ ...newGame, [e.target.name]: e.target.value });
   };
   // function to convert to base64
@@ -103,7 +107,7 @@ const Layout = ({ Content }) => {
     e.preventDefault();
 
     const res = await addGame(newGame);
-    console.log(res.status);
+    console.log(res);
 
     //Clear input fields
     setNewGame({

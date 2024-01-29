@@ -131,7 +131,7 @@ export const getGame = async (req, res) => {
 //Add game
 export const addGame = async (req, res) => {
   const game = req.body;
-  console.log(game);
+
   // Create new game onject
   const newGame = new Games({
     ...game,
@@ -181,7 +181,8 @@ export const deleteGame = async (req, res) => {
       return res.status(404).send("Game not found with the id");
 
     //Remove the game from database
-    await Games.findByIdAndRemove(id);
+    await Games.findByIdAndRemove({ id });
+    console.log(id);
 
     games = game.filter((game) => game.id !== id);
     res.status(202).send("Game deleted from the library");
