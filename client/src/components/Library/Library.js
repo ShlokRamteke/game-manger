@@ -40,11 +40,11 @@ const Library = () => {
     <div>
       {/* Recently Added (limit 6) */}
 
-      <div style={{ marginTop: "60px" }}>
+      <div style={{ marginTop: "60px", padding: "0 20px" }}>
         <Typography className={classes.heading} component="h2">
-          Recently Added
+          RECENT GAMES
         </Typography>
-        <Grid container spacing={4} justify="center">
+        <Grid container spacing={5} justify="center">
           {recentGames &&
             recentGames.map((game, index) => <Game key={index} game={game} />)}
         </Grid>
@@ -60,12 +60,14 @@ const Library = () => {
         }}
       >
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
+          expandIcon={
+            <ExpandMoreIcon style={{ color: "white", fontSize: "2rem" }} />
+          }
           aria-controls="all-games"
           id="all-games"
         >
           <Typography component="h2">
-            All Games <span style={{ color: "grey" }}>({games.length})</span>
+            ALL GAMES <span style={{ color: "grey" }}>({games.length})</span>
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
