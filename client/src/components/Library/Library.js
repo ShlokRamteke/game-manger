@@ -39,29 +39,16 @@ const Library = () => {
   return (
     <div>
       {/* Recently Added (limit 6) */}
-      <Accordion
-        defaultExpanded={true}
-        className={classes.list}
-        style={{ marginTop: "60px" }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
-          aria-controls="recent-games"
-          id="recent-games"
-        >
-          <Typography className={classes.heading} component="h2">
-            Recently Added
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container spacing={6} justify="center">
-            {recentGames &&
-              recentGames.map((game, index) => (
-                <Game key={index} game={game} />
-              ))}
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
+
+      <div style={{ marginTop: "60px" }}>
+        <Typography className={classes.heading} component="h2">
+          Recently Added
+        </Typography>
+        <Grid container spacing={4} justify="center">
+          {recentGames &&
+            recentGames.map((game, index) => <Game key={index} game={game} />)}
+        </Grid>
+      </div>
 
       {/* All Games */}
       <Accordion
@@ -77,12 +64,12 @@ const Library = () => {
           aria-controls="all-games"
           id="all-games"
         >
-          <Typography className={classes.heading} component="h2">
+          <Typography component="h2">
             All Games <span style={{ color: "grey" }}>({games.length})</span>
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={6} justify="center">
+          <Grid container spacing={5} justify="center">
             {games &&
               games.map((game, index) => <Game key={index} game={game} />)}
           </Grid>
