@@ -167,6 +167,7 @@ export const updateGame = async (req, res) => {
     res.status(200).send(updatedGame);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: error });
   }
 };
 
@@ -186,5 +187,6 @@ export const deleteGame = async (req, res) => {
     res.status(202).send("Game deleted from the library");
   } catch (error) {
     console.log(error);
+    res.json({ message: error });
   }
 };

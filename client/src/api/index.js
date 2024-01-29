@@ -13,7 +13,7 @@ export const addGame = (newGame) => API.post("/games", newGame);
 
 //Edit Game data
 export const updateGame = (updatedGame, id) =>
-  API.patch(`/games/${id}`, updateGame);
+  API.patch(`/games/${id}`, updatedGame);
 
 //Delete Game
 export const deleteGame = (id) => API.delete(`/games/${id}`);

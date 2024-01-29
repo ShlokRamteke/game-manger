@@ -85,7 +85,7 @@ const Layout = ({ Content }) => {
     }
     setNewGame({ ...newGame, [e.target.name]: e.target.value });
   };
-  // function to convet to base64
+  // function to convert to base64
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -117,6 +117,10 @@ const Layout = ({ Content }) => {
     toggleUploadForm();
     alert(res.data);
   };
+
+  useEffect(() => {
+    document.title = "Library | Game Manager";
+  }, []);
 
   //Watch for changes to the viewport
   useEffect(() => {
@@ -238,7 +242,6 @@ const Layout = ({ Content }) => {
             />
             {/* Description */}
             <TextField
-              autoFocus
               margin="dense"
               name="description"
               id="description"
