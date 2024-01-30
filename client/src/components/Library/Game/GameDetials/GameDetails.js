@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link as RouterLink, useNavigate } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
 
 //API Calls
 import { updateGame, deleteGame } from "../../../../api/index.js";
@@ -16,8 +16,6 @@ import {
   Typography,
   Link,
 } from "@mui/material";
-
-import { Alert, AlertTitle } from "@mui/material";
 
 // Custom form content
 import GameForm from "../../../GameForm";
@@ -37,7 +35,6 @@ import { useStyles } from "./styles";
 const GameDetails = () => {
   const classes = useStyles();
   const { id } = useParams();
-  const history = useNavigate();
   const [game, setGame] = useState({
     title: "",
     coverArt: "",
@@ -104,77 +101,6 @@ const GameDetails = () => {
   const [alertStatus, setAlertStatus] = useState(200);
   const [confirmation, setConfirmation] = useState(false);
   const toggleConfirmationDialog = () => setConfirmation(!confirmation);
-
-  //Display a confirmation alert after user submits form
-  const confirmationAlert = (status) => {
-    switch (status) {
-      //Successful update
-      case 200:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="success"
-            variant="filled"
-            onClose={() => {
-              toggleConfirmationDialog();
-              getGameDetails();
-            }}
-          >
-            <AlertTitle>Success</AlertTitle>
-            Game details have been updated!
-          </Alert>
-        );
-      // Handle successful deletion
-      case 202:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="success"
-            variant="filled"
-            onClose={() => {
-              toggleConfirmationDialog();
-              // Redirect user to library
-              history("/games");
-            }}
-          >
-            <AlertTitle>Success</AlertTitle>
-            Game details have been updated!
-          </Alert>
-        );
-      case 500:
-      case 403:
-      case 404:
-      case 405:
-      case 409:
-      case 410:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="error"
-            variant="filled"
-            onClose={() => toggleConfirmationDialog()}
-          >
-            <AlertTitle> Error</AlertTitle>
-            Something went wrong! Please check your inputs and try again.
-          </Alert>
-        );
-      default:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="success"
-            variant="filled"
-            onClose={() => {
-              toggleConfirmationDialog();
-              getGameDetails();
-            }}
-          >
-            <AlertTitle>success</AlertTitle>
-            Game details have been updated!
-          </Alert>
-        );
-    }
-  };
 
   //update page on id change
   useEffect(() => {
@@ -243,8 +169,10 @@ const GameDetails = () => {
       {/* Form Confirmation dialog box*/}
       <FormAlert
         confirmation={confirmation}
-        confirmationAlert={confirmationAlert}
+        toggleConfirmationDialog={toggleConfirmationDialog}
         alertStatus={alertStatus}
+        classes={classes}
+        getGameDetails={getGameDetails}
       />
     </div>
   );

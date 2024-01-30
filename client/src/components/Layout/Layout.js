@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
+//API Calls
 import { addGame, getAllGames } from "../../api/index.js";
 
 //Classname utility for creating conditonal classes
@@ -25,7 +26,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-import { Alert, AlertTitle } from "@mui/material";
 //Custom Form Components
 import GameForm from "../GameForm.js";
 import FormAlert from "../FormAlert.js";
@@ -46,7 +46,7 @@ import Logo from "../../game-console-bg.svg";
 
 import Library from "../Library/Library.js";
 
-const Layout = ({ Content }) => {
+const Layout = () => {
   const classes = useStyles();
   const history = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -135,60 +135,6 @@ const Layout = ({ Content }) => {
   const [confirmation, setConfirmation] = useState(false);
   const toggleConfirmationDialog = () => setConfirmation(!confirmation);
 
-  // Reload page after successful game upload
-  const confirmationClose = () => {
-    toggleConfirmationDialog();
-    window.location.reload();
-  };
-
-  // Display a confirmation alert after user submits form
-  const confirmationAlert = (status) => {
-    switch (status) {
-      case 201:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="success"
-            variant="filled"
-            onClose={() => confirmationClose()}
-          >
-            <AlertTitle>Success</AlertTitle>
-            Game has been uploaded!
-          </Alert>
-        );
-      // Handle errors
-      case 500:
-      case 403:
-      case 404:
-      case 405:
-      case 409:
-      case 410:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="error"
-            variant="filled"
-            onClose={() => toggleConfirmationDialog()}
-          >
-            <AlertTitle>Error</AlertTitle>
-            Something went wrong! Please check your inputs and try again.
-          </Alert>
-        );
-      default:
-        return (
-          <Alert
-            className={classes.alert}
-            severity="success"
-            variant="filled"
-            onClose={() => confirmationClose()}
-          >
-            <AlertTitle>Success</AlertTitle>
-            Game has been uploaded!
-          </Alert>
-        );
-    }
-  };
-
   //Fetch and set games
   const handleGames = async () => {
     const { data } = await getAllGames();
@@ -272,7 +218,7 @@ const Layout = ({ Content }) => {
             open={Boolean(accountMenu)}
             onClose={closeAccountMenu}
           >
-            <MenuItem onClick={closeAccountMenu}>Profile</MenuItem>
+            {/*<MenuItem onClick={closeAccountMenu}>Profile</MenuItem>*/}
             <MenuItem onClick={logout}>
               Logout <ExitToAppIcon />
             </MenuItem>
@@ -355,7 +301,7 @@ const Layout = ({ Content }) => {
           )}
         </List>
       </Drawer>
-      {/* Content of page */}
+      {/* Main content of page */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
@@ -374,7 +320,7 @@ const Layout = ({ Content }) => {
       {/* Form Conformation dialog box*/}
       <FormAlert
         confirmation={confirmation}
-        confirmationAlert={confirmationAlert}
+        toggleConfirmationDialog={toggleConfirmationDialog}
         alertStatus={alertStatus}
       />
     </div>
