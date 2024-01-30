@@ -28,6 +28,8 @@ import {
   Button,
   Menu,
   MenuItem,
+  Link,
+  InputBase,
 } from "@mui/material";
 
 import { Alert, AlertTitle } from "@mui/material";
@@ -39,6 +41,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CancelIcon from "@mui/icons-material/Cancel";
+import SearchIcon from "@mui/icons-material/Search.js";
 
 import { useStyles } from "./styles.js";
 
@@ -291,18 +294,20 @@ const Layout = ({ Content }) => {
           </ListItem>
         </List>
         <Divider />
-        {/* Account/Settings */}
-        <List>
-          <ListItem button component={NavLink} to="/account">
-            <ListItemIcon>
-              {/* User avatar */}
-              <Avatar className={classes.avatar}>
-                <SportsEsportsIcon />{" "}
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText primary="My Account" />
-          </ListItem>
-        </List>
+        {/* Search bar */}
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search by Name"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+          />
+        </div>
       </Drawer>
       {/* Content of page */}
       <main className={classes.content}>
