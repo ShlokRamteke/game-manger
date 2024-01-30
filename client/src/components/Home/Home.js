@@ -112,7 +112,11 @@ const Home = () => {
             <SportsEsportsIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Welcome to Game Library Manager
+            <Typography component="h2" varient="subtitle1">
+              {" "}
+              Please Sign In to continue
+            </Typography>
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField

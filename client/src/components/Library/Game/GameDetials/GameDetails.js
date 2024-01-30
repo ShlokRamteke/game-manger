@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link as RouterLink, useNavigate } from "react-router-dom";
+
+//API Calls
 import { updateGame, deleteGame } from "../../../../api/index.js";
 
 import {
   Container,
-  Grid,
   Paper,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Divider,
-  Button,
   Fab,
   Typography,
   Link,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  TextField,
 } from "@mui/material";
 
 import { Alert, AlertTitle } from "@mui/material";
 
+// Custom form content
+import GameForm from "../../../GameForm";
+import FormAlert from "../../../FormAlert";
+import { convertToBase64 } from "../../../FileToBase64";
+
 //Icons
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CancelIcon from "@mui/icons-material/Cancel.js";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload.js";
 import EditIcon from "@mui/icons-material/Edit.js";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever.js";
 
 // Get single game details
 import { getGame } from "../../../../api/index.js";
 
+//Custum CSS
 import { useStyles } from "./styles";
 
 const GameDetails = () => {
@@ -62,25 +59,10 @@ const GameDetails = () => {
     if (e.target.files) {
       const file = e.target.files[0];
       const base64 = await convertToBase64(file);
-      console.log("Files");
       setGame({ ...game, [e.target.name]: base64 });
       return;
     }
-    console.log(e.target.name, e.target.value);
     setGame({ ...game, [e.target.name]: e.target.value });
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   };
 
   const handleDeleteGame = async (e) => {
@@ -103,7 +85,6 @@ const GameDetails = () => {
     e.preventDefault();
 
     const res = await updateGame(game, id);
-    console.log(res);
 
     //Clear input fields
     setGame({
@@ -251,107 +232,20 @@ const GameDetails = () => {
         </Paper>
       </Container>
       {/* *********** GAME EDIT FORM ************ */}
-      <Dialog open={editForm} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Manage Game:</DialogTitle>
-
-        <DialogContent>
-          <DialogContentText>
-            Use the inputs below to edit the game. When you're finished, press
-            the save button to upload the changes to the library.
-          </DialogContentText>
-          <Divider variant="middle" style={{ marginBottom: "10px" }} />
-          <form>
-            {/* Title */}
-            <TextField
-              autoFocus
-              margin="dense"
-              name="title"
-              id="title"
-              label="Game Title"
-              type="text"
-              defaultValue={game?.title}
-              onChange={handleFormChange}
-              fullWidth
-            />
-            {/* Description */}
-            <TextField
-              margin="dense"
-              name="description"
-              id="description"
-              label="Description"
-              type="text"
-              defaultValue={game?.description}
-              onChange={handleFormChange}
-              fullWidth
-            />
-            {/* Release Date */}
-            <TextField
-              margin="dense"
-              name="releaseDate"
-              id="releaseDate"
-              label="Release Date"
-              type="text"
-              defaultValue={game?.releaseDate}
-              onChange={handleFormChange}
-              helperText="Format: June 30, 2021"
-              fullWidth
-            />
-            {/* Cover Art */}
-            <input
-              accept="image/*"
-              name="coverArt"
-              id="coverArt"
-              onChange={handleFormChange}
-              type="file"
-              style={{ display: "none" }}
-            />
-            <label htmlFor="coverArt">
-              <Button
-                style={{ marginTop: "20px" }}
-                variant="contained"
-                color="secondary"
-                component="span"
-                startIcon={<CloudUploadIcon />}
-              >
-                Upload Cover Art
-              </Button>
-            </label>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={toggleEditForm}
-            color="primary"
-            variant="outlined"
-            startIcon={<CancelIcon />}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleDeleteGame}
-            color="secondary"
-            variant="contained"
-            startIcon={<DeleteForeverIcon />}
-          >
-            Delete Game
-          </Button>
-          <Button
-            onClick={handleUpdateGame}
-            color="primary"
-            variant="contained"
-            startIcon={<CloudUploadIcon />}
-          >
-            Save Changes
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Form Confirmation dialog */}
-      <Dialog open={confirmation} aria-describedby="alert-dialog-description">
-        <DialogContent style={{ padding: "0" }}>
-          {confirmation && confirmationAlert(alertStatus)}
-        </DialogContent>
-      </Dialog>
+      <GameForm
+        isFormOpen={editForm}
+        toggleForm={toggleEditForm}
+        handleFormChange={handleFormChange}
+        game={game}
+        handleGame={handleUpdateGame}
+        handleDeleteGame={handleDeleteGame}
+      />
+      {/* Form Confirmation dialog box*/}
+      <FormAlert
+        confirmation={confirmation}
+        confirmationAlert={confirmationAlert}
+        alertStatus={alertStatus}
+      />
     </div>
   );
 };
