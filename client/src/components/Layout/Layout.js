@@ -268,7 +268,7 @@ const Layout = ({ Content }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="h1" className={classes.title}>
-            Game Library
+            My Game Library
           </Typography>
           <Button
             variant="contained"
@@ -277,7 +277,7 @@ const Layout = ({ Content }) => {
             className={classes.button}
             startIcon={<SportsEsportsIcon />}
           >
-            My Account
+            {width >= 370 && "My Account"}
           </Button>
           {/* **** USER ACCOUNT ***** */}
           <Menu
@@ -335,7 +335,6 @@ const Layout = ({ Content }) => {
               input: classes.inputInput,
             }}
             inputRef={searchInput}
-            defaultValue=""
             id="searchInput"
             inputProps={{ "aria-label": "search" }}
             autoComplete="off"
