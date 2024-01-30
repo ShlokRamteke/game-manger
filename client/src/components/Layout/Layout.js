@@ -7,7 +7,6 @@ import { addGame, getAllGames } from "../../api/index.js";
 import clsx from "clsx";
 import {
   Container,
-  Grid,
   AppBar,
   Divider,
   Drawer,
@@ -18,7 +17,6 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  Avatar,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -46,6 +44,8 @@ import SearchIcon from "@mui/icons-material/Search.js";
 import ClearIcon from "@mui/icons-material/Clear.js";
 
 import { useStyles } from "./styles.js";
+
+import Logo from "../../game-console-bg.svg";
 
 import Library from "../Library/Library.js";
 
@@ -267,7 +267,9 @@ const Layout = ({ Content }) => {
           >
             <MenuIcon />
           </IconButton>
+          {/*Title & Logo*/}
           <Typography variant="h6" component="h1" className={classes.title}>
+            <img src={Logo} className={classes.logo} alt="Game Console logo" />
             My Game Library
           </Typography>
           <Button

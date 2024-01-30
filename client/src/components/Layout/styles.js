@@ -46,6 +46,11 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.dark,
     fontSize: "1rem",
   },
+  logo: {
+    width: "45px",
+    height: "auto",
+    marginRight: "10px",
+  },
   drawerPaper: {
     backgroundColor: theme.palette.background.light,
     color: theme.palette.text.dark,
