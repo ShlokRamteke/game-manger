@@ -111,18 +111,7 @@ export const getAllGames = async (req, res) => {
     res.status(200).send(games);
   } catch (error) {
     console.log(error);
-    res.status(404).json({ message: error });
-  }
-};
-
-export const getRecentlyAddedGames = async (req, res) => {
-  try {
-    // Fetch games & sort by most recently added
-    const games = await Games.find().sort({ _id: -1 }).limit(6);
-    res.status(200).send(games);
-  } catch (error) {
-    console.log(error);
-    res.status(404).send("Games were not found");
+    res.json({ message: error });
   }
 };
 
@@ -143,7 +132,7 @@ export const getGame = async (req, res) => {
 export const addGame = async (req, res) => {
   const game = req.body;
 
-  // Create new game onject
+  // Create new game object
   const newGame = new Games({
     ...game,
     createdAt: new Date().toISOString(),

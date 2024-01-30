@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getAllGames } from "../../api/index.js";
 import Game from "./Game/Game.js";
 
 import {
@@ -15,26 +14,18 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore.js";
 
 import { useStyles } from "./styles";
 
-const Library = () => {
+const Library = ({ games }) => {
   const classes = useStyles();
-  const [games, setGames] = useState([]);
   const [recentGames, setRecentGames] = useState([]);
 
-  const getMostRecentGames = (list) => {
+  const getMostRecentGames = () => {
     //Copy data and reverce(doesn't modify original list)
-    const recent = [...list].reverse();
+    const recent = [...games].reverse();
     setRecentGames(recent.slice(0, 6));
   };
 
-  const handleGames = async () => {
-    const { data } = await getAllGames();
-
-    await setGames(data);
-    await getMostRecentGames(data);
-  };
-
   useEffect(() => {
-    handleGames();
+    getMostRecentGames();
   }, []);
   return (
     <div>
