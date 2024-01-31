@@ -2,9 +2,9 @@ import React from "react";
 
 import { Link as RouterLink } from "react-router-dom";
 
-import { Grid, Card, CardMedia, Link } from "@mui/material";
+import { Grid, Card, Link, CardMedia } from "@material-ui/core";
 
-import { useStyles } from "../styles.js";
+import { useStyles } from "./styles";
 
 const Game = ({ game }) => {
   const classes = useStyles();

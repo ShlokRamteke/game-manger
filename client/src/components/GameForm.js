@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Divider,
   Dialog,
@@ -8,12 +9,12 @@ import {
   DialogActions,
   TextField,
   Button,
-} from "@mui/material";
+} from "@material-ui/core";
 
-//Icon
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import CancelIcon from "@mui/icons-material/Cancel";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+// Icons
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import CancelIcon from "@material-ui/icons/Cancel";
 function GameForm({
   isNewGame = false,
   isFormOpen,

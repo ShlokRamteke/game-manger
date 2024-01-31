@@ -1,5 +1,4 @@
-import { makeStyles } from "@mui/styles";
-import { alpha } from "@mui/material/styles";
+import { makeStyles, fade } from "@material-ui/core/styles";
 import backgroundImg from "../../images/rose-petals-bg.svg";
 
 const drawerWidth = 260;
@@ -45,6 +44,8 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: theme.palette.text.dark,
     fontSize: "1rem",
+    display: "flex",
+    alignItems: "center",
   },
   logo: {
     width: "45px",
@@ -57,6 +58,8 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
+    zIndex: theme.zIndex.drawer,
+
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -77,6 +80,7 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     fontSize: "2rem",
   },
+
   listItem: {
     color: theme.palette.text.default,
     "&:hover": {
@@ -87,7 +91,9 @@ export const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
+    p: 3,
     height: "100vh",
+
     overflow: "auto",
     backgroundImage: `url("${backgroundImg}")`,
   },
@@ -110,9 +116,9 @@ export const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginTop: "10px",
     marginLeft: 0,
@@ -123,7 +129,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(2, 2),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",

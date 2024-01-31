@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
   card: {
@@ -6,6 +6,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "180px",
     display: "flex",
     flexDirection: "column",
+
     color: theme.palette.text.light,
     backgroundColor: theme.palette.background.dark,
     transition: "0.4s",
@@ -16,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   cardMedia: {
-    //paddingTop: "56.25%", // 16:9
+    // paddingTop: "56.25%", // 16:9
     minWidth: "100%",
     height: "100%",
     backgroundSize: "cover",

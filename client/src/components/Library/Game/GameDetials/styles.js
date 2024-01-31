@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import backgroundImg from "../../../../images/rose-petals-bg.svg";
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +71,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   cardActions: {
     paddingTop: "20px",
+    position: "relative",
   },
   divider: {
     backgroundColor: "white",

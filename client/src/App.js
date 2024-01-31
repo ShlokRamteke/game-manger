@@ -1,7 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
-import CssBaseline from "@mui/material/CssBaseline";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 //Routes
 import Home from "./components/Home/Home.js";
@@ -12,13 +17,13 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-
       <Router>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/games" element={<Layout />} />
-          <Route exact path="/games/:id" element={<Game />} />
-        </Routes>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/games" component={Layout} />
+          <Route exact path="/games/:id" component={Game} />
+          <Redirect to="/" component={Home} />
+        </Switch>
       </Router>
     </React.Fragment>
   );

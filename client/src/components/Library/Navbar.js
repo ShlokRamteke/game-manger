@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  CssBaseline,
-  Divider,
-  Drawer,
-  Hidden,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
-import { makeStyles } from "@mui/styles";
-import { useTheme } from "@mui/material";
-
-import MenuIcon from "@mui/icons-material/Menu";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-
+import MenuIcon from "@material-ui/icons/Menu";
+import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {

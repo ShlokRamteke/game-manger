@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Dialog, DialogContent } from "@mui/material";
-import { Alert, AlertTitle } from "@mui/material";
+import { useHistory } from "react-router";
+import { Dialog, DialogContent } from "@material-ui/core";
 
-//Diaolog box for game forms
+import { Alert, AlertTitle } from "@material-ui/lab";
+
+//Dialog box for game forms
 const FormAlert = ({
   confirmation,
   alertStatus,
@@ -11,7 +12,7 @@ const FormAlert = ({
   classes,
   getGameDetails,
 }) => {
-  const history = useNavigate();
+  const history = useHistory();
 
   //Display a confirmation alert after user submits form
   const confirmationAlert = (status) => {

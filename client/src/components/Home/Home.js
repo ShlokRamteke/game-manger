@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { signin } from "../../api";
+import { useHistory, Link } from "react-router-dom";
+
+import { signin } from "../../api/index";
 
 import {
   Grid,
@@ -9,24 +10,23 @@ import {
   Typography,
   TextField,
   Button,
-} from "@mui/material";
+} from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
-import { Alert, AlertTitle } from "@mui/material";
-
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 
 import { useStyles } from "./styles";
 
 const Home = () => {
   //Hooks
   const classes = useStyles();
-  const history = useNavigate();
+  const history = useHistory();
 
   //State
   const [signIn, setSignIn] = useState({
     username: "GamerGuy16",
     password: "",
-    error: "false",
+    error: false,
     errorMessage: {},
   });
   const [showHint, setShowHint] = useState(false);
@@ -70,7 +70,7 @@ const Home = () => {
         <Alert
           className={classes.alert}
           severity="error"
-          varient="filled"
+          variant="filled"
           onClose={() => toggleConfirmationDialog()}
         >
           <AlertTitle>Error</AlertTitle>
@@ -96,7 +96,7 @@ const Home = () => {
     const token = data.token;
 
     localStorage.setItem("token", token);
-    history("/games");
+    history.push("/games");
   };
 
   useEffect(() => {
@@ -113,10 +113,9 @@ const Home = () => {
           </Avatar>
           <Typography component="h1" variant="h5">
             Welcome to Game Library Manager
-            <Typography component="h2" varient="subtitle1">
-              {" "}
-              Please Sign In to continue
-            </Typography>
+          </Typography>
+          <Typography component="h2" varient="subtitle1">
+            Please Sign In to continue
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField

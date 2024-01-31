@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5500/" });
+const API = axios.create({
+  baseURL: "https://game-manager-backend.onrender.com",
+});
+//const API = axios.create({ baseURL: "http://localhost:5500/" });
 
 /*****AUTH******/
 export const signin = (attempt) => API.post("/", attempt);

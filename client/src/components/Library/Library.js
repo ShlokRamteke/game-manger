@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Game from "./Game/Game.js";
 
 import {
@@ -7,13 +7,13 @@ import {
   AccordionDetails,
   Grid,
   Typography,
-} from "@mui/material";
+} from "@material-ui/core";
 
-//Icons
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore.js";
+// Icons
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
+// Custom styles
 import { useStyles } from "./styles";
-
 const Library = ({ games }) => {
   const classes = useStyles();
   const [recentGames, setRecentGames] = useState([]);

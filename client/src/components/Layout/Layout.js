@@ -1,54 +1,51 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+// API Calls
+import { addGame, getAllGames } from "../../api/index";
 
-//API Calls
-import { addGame, getAllGames } from "../../api/index.js";
-
-//Classname utility for creating conditonal classes
+// Classname utility for creating conditional classes
 import clsx from "clsx";
+import Container from "@material-ui/core/Container";
+import AppBar from "@material-ui/core/AppBar";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import {
-  Container,
-  AppBar,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
   Button,
   Menu,
   MenuItem,
   Link,
   InputBase,
   CircularProgress,
-} from "@mui/material";
+} from "@material-ui/core";
 
-//Custom Form Components
-import GameForm from "../GameForm.js";
-import FormAlert from "../FormAlert.js";
-import { convertToBase64 } from "../FileToBase64.js";
+// Custom form components
+import GameForm from "../GameForm";
+import FormAlert from "../FormAlert";
+import { convertToBase64 } from "../FileToBase64";
 
-//Icons
-import MenuIcon from "@mui/icons-material/Menu";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import SearchIcon from "@mui/icons-material/Search.js";
-import ClearIcon from "@mui/icons-material/Clear.js";
+// Icons
+import MenuIcon from "@material-ui/icons/Menu";
+import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 
-import { useStyles } from "./styles.js";
-
+import { useStyles } from "./styles";
 import Logo from "../../game-console-bg.svg";
-
-import Library from "../Library/Library.js";
+import Library from "../Library/Library";
 
 const Layout = () => {
   const classes = useStyles();
-  const history = useNavigate();
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
   const [newGame, setNewGame] = useState({
@@ -78,7 +75,7 @@ const Layout = () => {
 
   //Handle user logout
   const logout = () => {
-    history("/");
+    history.push("/");
     //Remove token from storage
     localStorage.clear();
   };
@@ -256,21 +253,23 @@ const Layout = () => {
         <Divider />
         {/* Search bar */}
         <div className={classes.search}>
-          <div className={classes.searchIcon}>
+          <div button className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
-            placeholder="Search by Name"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputRef={searchInput}
-            id="searchInput"
-            inputProps={{ "aria-label": "search" }}
-            autoComplete="off"
-            onChange={searchGames}
-          />
+          {open && (
+            <InputBase
+              placeholder="Search by Name"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputRef={searchInput}
+              id="searchInput"
+              inputProps={{ "aria-label": "search" }}
+              autoComplete="off"
+              onChange={searchGames}
+            />
+          )}
           <div className={classes.clearIcon}>
             {/* Display once user begins typing */}
             {searchInput.current?.value !== "" && (
@@ -284,22 +283,24 @@ const Layout = () => {
           </div>
         </div>
         {/* Games list */}
-        <List style={{ padding: " 10px" }}>
-          <Typography>Games ({searchList?.length})</Typography>
-          {searchList?.length > 0 ? (
-            searchList?.map((game, index) => (
-              <ListItem key={index}>
-                <Link component={RouterLink} to={`/games/${game._id}`}>
-                  {game.title}
-                </Link>
+        {open && (
+          <List style={{ padding: " 10px" }}>
+            <Typography>Games ({searchList?.length})</Typography>
+            {searchList?.length > 0 ? (
+              searchList?.map((game, index) => (
+                <ListItem key={index}>
+                  <Link noWrap component={RouterLink} to={`/games/${game._id}`}>
+                    {game.title}
+                  </Link>
+                </ListItem>
+              ))
+            ) : (
+              <ListItem>
+                <ListItemText>No Games Found</ListItemText>
               </ListItem>
-            ))
-          ) : (
-            <ListItem>
-              <ListItemText>No Games Found</ListItemText>
-            </ListItem>
-          )}
-        </List>
+            )}
+          </List>
+        )}
       </Drawer>
       {/* Main content of page */}
       <main className={classes.content}>
@@ -322,6 +323,7 @@ const Layout = () => {
         confirmation={confirmation}
         toggleConfirmationDialog={toggleConfirmationDialog}
         alertStatus={alertStatus}
+        classes={classes}
       />
     </div>
   );

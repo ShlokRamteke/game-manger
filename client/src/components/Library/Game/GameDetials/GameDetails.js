@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
-
-//API Calls
-import { updateGame, deleteGame } from "../../../../api/index.js";
-
+// API calls
+import { updateGame, deleteGame } from "../../../../api/index";
 import {
   Container,
   Paper,
@@ -15,21 +13,20 @@ import {
   Fab,
   Typography,
   Link,
-} from "@mui/material";
+} from "@material-ui/core";
 
 // Custom form content
 import GameForm from "../../../GameForm";
 import FormAlert from "../../../FormAlert";
 import { convertToBase64 } from "../../../FileToBase64";
 
-//Icons
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import EditIcon from "@mui/icons-material/Edit.js";
+// Icons
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import EditIcon from "@material-ui/icons/Edit";
 
 // Get single game details
-import { getGame } from "../../../../api/index.js";
-
-//Custum CSS
+import { getGame } from "../../../../api/index";
+// Custom CSS
 import { useStyles } from "./styles";
 
 const GameDetails = () => {
